@@ -1,5 +1,6 @@
 require 'azure'
-require 'fluent/plugin/upload_service'
+#require '/etc/fluent/plugin/upload_service'
+require 'upload_service'
 require 'zlib'
 require 'time'
 require 'tempfile'
@@ -90,19 +91,19 @@ module Fluent::Plugin
     def start
       super
 
-        if !@azure_storage_access_key.nil?
-          Azure.configure do |config|
-            config.storage_account_name = @azure_storage_account
-            config.storage_access_key   = @azure_storage_access_key
-          end
+      if !@azure_storage_access_key.nil?
+        Azure.configure do |config|
+          config.storage_account_name = @azure_storage_account
+          config.storage_access_key   = @azure_storage_access_key
         end
+      end
 
-        if !@azure_storage_sas_token.nil?
-          Azure.configure do |config|
-            config.storage_account_name = @azure_storage_account
-            config.storage_sas_token   = @azure_storage_sas_token
-          end
+      if !@azure_storage_sas_token.nil?
+        Azure.configure do |config|
+          config.storage_account_name = @azure_storage_account
+          config.storage_sas_token   = @azure_storage_sas_token
         end
+      end
 
       @bs = Azure::Blob::BlobService.new
       @bs.extend UploadService
