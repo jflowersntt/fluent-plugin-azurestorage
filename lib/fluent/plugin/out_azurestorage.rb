@@ -1,6 +1,5 @@
 require 'azure'
-#require '/etc/fluent/plugin/upload_service'
-require 'upload_service'
+require 'fluent/plugin/upload_service'
 require 'zlib'
 require 'time'
 require 'tempfile'
