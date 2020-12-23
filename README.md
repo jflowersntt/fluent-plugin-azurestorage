@@ -90,10 +90,10 @@ Note that this configuration doesn't work with fluentd v0.12.
 Your Azure Storage Account Name. This can be got from Azure Management potal.
 This parameter is required when environment variable 'AZURE_STORAGE_ACCOUNT' is not set.
 
-### azure_storage_access_key
+### azure_storage_access_key or azure_storage_sas_token (Required)
 
-Your Azure Storage Access Key(Primary or Secondary). This also can be got from Azure Management potal.
-This parameter is required when environment variable 'AZURE_STORAGE_ACCESS_KEY' is not set.
+Your Azure Storage Access Key (Primary or Secondary) or shared access signature (SAS) token.
+This also can be retrieved from Azure Management portal.
 
 ### azure_container (Required)
 

@@ -20,6 +20,7 @@ module Fluent::Plugin
     config_param :path, :string, :default => ""
     config_param :azure_storage_account, :string, :default => nil
     config_param :azure_storage_access_key, :string, :default => nil, :secret => true
+    config_param :azure_storage_sas_token, :string, :default => nil, :secret => true
     config_param :azure_container, :string, :default => nil
     config_param :azure_storage_type, :string, :default => "blob"
     config_param :azure_object_key_format, :string, :default => "%{path}%{time_slice}_%{index}.%{file_extension}"
@@ -89,12 +90,20 @@ module Fluent::Plugin
     def start
       super
 
-      if (!@azure_storage_account.nil? && !@azure_storage_access_key.nil?)
-        Azure.configure do |config|
-          config.storage_account_name = @azure_storage_account
-          config.storage_access_key   = @azure_storage_access_key
+        if !@azure_storage_access_key.nil?
+          Azure.configure do |config|
+            config.storage_account_name = @azure_storage_account
+            config.storage_access_key   = @azure_storage_access_key
+          end
         end
-      end
+
+        if !@azure_storage_sas_token.nil?
+          Azure.configure do |config|
+            config.storage_account_name = @azure_storage_account
+            config.storage_sas_token   = @azure_storage_sas_token
+          end
+        end
+
       @bs = Azure::Blob::BlobService.new
       @bs.extend UploadService
 
