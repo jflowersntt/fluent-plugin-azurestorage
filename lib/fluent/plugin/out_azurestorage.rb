@@ -1,5 +1,5 @@
 require 'azure'
-require 'fluent/plugin/upload_service'
+require 'fluentd/plugins/upload_service'
 require 'zlib'
 require 'time'
 require 'tempfile'
